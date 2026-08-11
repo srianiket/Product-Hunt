@@ -20,8 +20,8 @@ Bun + TypeScript framework for **API (GraphQL)** and **E2E (Playwright)** testin
 │   ├── api/               # GraphQL client, queries, types
 │   ├── config/            # Env configuration
 │   └── e2e/
-│       ├── components/    # Locator-only component classes
-│       └── pages/         # Page actions (compose components)
+│       ├── components/    # Locator + element actions
+│       └── pages/         # Page flows (compose components)
 ├── tests/
 │   ├── api/               # Bun test suite
 │   └── e2e/               # Playwright suite
