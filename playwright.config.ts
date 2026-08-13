@@ -5,7 +5,7 @@ import { defineConfig, devices } from "@playwright/test";
  * Prefer Playwright locators + web-first assertions over arbitrary sleeps.
  */
 export default defineConfig({
-  testDir: "./tests/e2e",
+  testDir: "./tests/ui",
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,

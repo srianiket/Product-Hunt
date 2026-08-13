@@ -49,7 +49,7 @@ export class HomeComponent extends BaseComponent {
     return this.productLinks.first().getAttribute("href");
   }
 
-  async clickFirstProduct() {
+  async clickFirstProduct(): Promise<void> {
     await expect(this.productLinks.first()).toBeVisible();
     await this.productLinks.first().click();
   }
@@ -68,5 +68,12 @@ export class HomeComponent extends BaseComponent {
   async submitSearch() {
     await this.page.keyboard.press("Enter");
     await this.page.waitForLoadState("domcontentloaded");
+  }
+
+  async expectBrandAndNavigation(title: string | RegExp): Promise<void> {
+    // String = substring match (PH title is longer than brand alone)
+    const expected = typeof title === "string" ? new RegExp(title, "i") : title;
+    await expect(this.page).toHaveTitle(expected);
+    await this.expectLogoVisible();
   }
 }

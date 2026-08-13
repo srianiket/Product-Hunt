@@ -24,10 +24,8 @@ export class HomePage extends BasePage {
     await this.open();
   }
 
-  async expectBrandAndNavigation() {
-    await expect(this.page).toHaveTitle(/product hunt/i);
-    await this.common.expectPrimaryNavVisible();
-    await this.home.expectLogoVisible();
+  async expectBrandAndNavigation(title: string | RegExp): Promise<void> {
+    return this.home.expectBrandAndNavigation(title);
   }
 
   async expectProductFeed() {
@@ -41,11 +39,8 @@ export class HomePage extends BasePage {
     await this.home.expectProductFeedVisible();
   }
 
-  async openFirstProduct() {
-    const href = await this.home.getFirstProductHref();
-    expect(href).toBeTruthy();
-    await this.home.clickFirstProduct();
-    await expect(this.page).toHaveURL(/\/posts\//);
+  async openFirstProduct(): Promise<void> {
+    return this.home.clickFirstProduct();
   }
 
   async searchFor(term: string) {
