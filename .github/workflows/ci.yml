@@ -23,8 +23,8 @@ jobs:
           PRODUCT_HUNT_TOKEN: ${{ secrets.PRODUCT_HUNT_TOKEN }}
         run: bun run test:api
 
-  e2e:
-    name: E2E (Playwright)
+  ui:
+    name: UI (Playwright)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -33,11 +33,15 @@ jobs:
           bun-version: latest
       - name: Install
         run: bun install --frozen-lockfile
-      - name: Install browsers
+      - name: Install Chromium
         run: bunx playwright install --with-deps chromium
-      - name: E2E tests
-        run: bun run test:e2e
-      - uses: actions/upload-artifact@v4
+      - name: UI tests
+        env:
+          CI: true
+          BASE_URL: https://www.producthunt.com
+        run: bun run test:ui
+      - name: Upload Playwright report
+        uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: playwright-report
