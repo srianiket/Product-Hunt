@@ -1,10 +1,10 @@
-import { expect, type Page } from "@playwright/test";
+import type { Page } from "@playwright/test";
 import { HomeComponent } from "../components/home.component";
 import { BasePage } from "./base.page";
 
 /**
- * Homepage flows. Specs call these methods;
- * locators/actions are delegated to HomeComponent / CommonComponent.
+ * Homepage page object — thin wrappers only.
+ * Locators and actions live in HomeComponent.
  */
 export class HomePage extends BasePage {
   private readonly home: HomeComponent;
@@ -14,54 +14,59 @@ export class HomePage extends BasePage {
     this.home = new HomeComponent(page);
   }
 
-  async open() {
-    await this.goto("/");
-    await this.dismissOverlaysIfPresent();
+  async open(): Promise<void> {
+    return this.home.open();
   }
 
-  async openOnMobile(width = 390, height = 844) {
-    await this.page.setViewportSize({ width, height });
-    await this.open();
+  async openOnMobile(width = 390, height = 844): Promise<void> {
+    return this.home.openOnMobile(width, height);
   }
 
   async expectBrandAndNavigation(title: string | RegExp): Promise<void> {
     return this.home.expectBrandAndNavigation(title);
   }
 
-  async expectProductFeed() {
-    await this.home.expectProductFeedVisible();
-    const count = await this.home.getProductLinkCount();
-    expect(count).toBeGreaterThan(0);
+  async expectProductFeed(): Promise<void> {
+    return this.home.expectProductFeed();
   }
 
-  async expectMobileLayoutUsable() {
-    await this.common.expectPrimaryNavVisible();
-    await this.home.expectProductFeedVisible();
+  async expectMobileLayoutUsable(): Promise<void> {
+    return this.home.expectMobileLayoutUsable();
   }
 
   async openFirstProduct(): Promise<void> {
-    return this.home.clickFirstProduct();
+    return this.home.openFirstProduct();
   }
 
-  async searchFor(term: string) {
-    await this.home.openSearch();
-    await this.home.fillSearch(term);
-    await this.home.submitSearch();
+  async searchFor(term: string): Promise<void> {
+    return this.home.searchFor(term);
   }
 
-  async expectSignInEntryVisible() {
-    await this.common.expectSignInVisible();
+  async expectSignInEntryVisible(): Promise<void> {
+    return this.home.expectSignInEntryVisible();
   }
 
-  async openTopicsOrLaunch() {
-    if (await this.common.isTopicsOrLaunchVisible()) {
-      await this.common.clickTopicsOrLaunch();
-      await expect(this.page).toHaveURL(/.+/);
-      await this.home.expectHeadingVisible();
-      return;
-    }
+  async openTopicsOrLaunch(): Promise<void> {
+    return this.home.openTopicsOrLaunch();
+  }
 
-    await this.goto("/topics");
-    await this.home.expectHeadingVisible();
+  async verifyHomePageHeader(header: string): Promise<void> {
+    return this.home.verifyHomePageHeader(header);
+  }
+
+  async homePageUrl(url: string): Promise<void> {
+    return this.home.homePageUrl(url);
+  }
+
+  async verifyHomePageLogo(): Promise<void> {
+    return this.home.verifyHomePageLogo();
+  }
+
+  async verifyTopBarElements(element: string): Promise<void> {
+    return this.home.verifyTopBarElements(element);
+  }
+
+  async verifyActionsOnProducts(): Promise<void> {
+    return this.home.verifyActionsOnProducts();
   }
 }
