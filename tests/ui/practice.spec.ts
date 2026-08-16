@@ -2,7 +2,7 @@ import { test } from "../../src/fixtures/fixtures";
 
 test.describe("Home — page features", () => {
 
-  test.beforeEach(async ({ homePage }) => {
+  test.beforeEach(async ({ homePage }) => { 
     await homePage.open();
   });
 
