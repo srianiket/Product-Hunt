@@ -31,4 +31,28 @@ export class ProductPage extends BasePage {
   async expectCommentsAvailable() {
     await this.product.expectCommentsVisible();
   }
+
+  async expectDetailContent(expectedName?: string): Promise<void> {
+    return this.product.expectDetailContent(expectedName);
+  }
+
+  async expectVoteCountMatchesListing(listingCount: number): Promise<void> {
+    return this.product.expectVoteCountMatchesListing(listingCount);
+  }
+
+  async expectUpvoteRequiresAuth(): Promise<void> {
+    return this.product.expectUpvoteRequiresAuth();
+  }
+
+  async expectCommentRequiresAuth(): Promise<void> {
+    return this.product.expectCommentRequiresAuth();
+  }
+
+  async clickUpvote(): Promise<void> {
+    return this.product.clickUpvote();
+  }
+
+  async getVoteCount(): Promise<number> {
+    return this.product.getVoteCount();
+  }
 }

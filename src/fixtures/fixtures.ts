@@ -8,6 +8,16 @@ type Fixtures = {
 };
 
 export const test = base.extend<Fixtures>({
+  // Optional logged-in session for upvote/comment mutation coverage
+  context: async ({ browser }, use) => {
+    const storageState = process.env.PH_STORAGE_STATE?.trim();
+    const context = await browser.newContext(
+      storageState ? { storageState } : {},
+    );
+    await use(context);
+    await context.close();
+  },
+
   homePage: async ({ page }, use) => {
     await use(new HomePage(page));
   },

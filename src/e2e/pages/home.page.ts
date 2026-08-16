@@ -30,6 +30,22 @@ export class HomePage extends BasePage {
     return this.home.expectProductFeed();
   }
 
+  async expectFeaturedListingLoaded(): Promise<void> {
+    return this.home.expectFeaturedListingLoaded();
+  }
+
+  async getFirstVoteCount(): Promise<number> {
+    return this.home.getFirstVoteCount();
+  }
+
+  async getFirstProductName(): Promise<string> {
+    return this.home.getFirstProductName();
+  }
+
+  async expectUpvoteRequiresAuth(): Promise<void> {
+    return this.home.expectUpvoteRequiresAuth();
+  }
+
   async expectMobileLayoutUsable(): Promise<void> {
     return this.home.expectMobileLayoutUsable();
   }
@@ -40,6 +56,14 @@ export class HomePage extends BasePage {
 
   async searchFor(term: string): Promise<void> {
     return this.home.searchFor(term);
+  }
+
+  async expectSearchResultsFor(term: string): Promise<void> {
+    return this.home.expectSearchResultsFor(term);
+  }
+
+  async expectNoSearchResults(): Promise<void> {
+    return this.home.expectNoSearchResults();
   }
 
   async expectSignInEntryVisible(): Promise<void> {
